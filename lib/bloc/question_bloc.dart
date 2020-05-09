@@ -6,6 +6,8 @@ class QuestionBloc extends ChangeNotifier {
   int _focusIndex;
   final inputList = <int>[];
 
+  bool get isSubmittable => inputList.every((element) => element != null);
+
   Question get question => _question;
   set question(Question value) {
     _question = value;
