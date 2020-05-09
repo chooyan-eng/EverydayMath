@@ -3,7 +3,6 @@ import 'package:math_everyday/model/question.dart';
 
 class QuestionBloc extends ChangeNotifier {
   Question _question;
-  int _focusIndex;
   int _inputNum;
 
   bool get isSubmittable => inputNum != null;
@@ -12,14 +11,7 @@ class QuestionBloc extends ChangeNotifier {
   set question(Question value) {
     _question = value;
     inputNum = null;
-    focusIndex = 0; // フォーカスを最初のやつにあてる
 
-    notifyListeners();
-  }
-
-  int get focusIndex => _focusIndex;
-  set focusIndex(int value) {
-    _focusIndex = value;
     notifyListeners();
   }
 

@@ -29,9 +29,12 @@ class Question {
   }
 
   factory Question.random() {
-    Question(
-      Random().nextInt(9),
-      Random().nextInt(9),
+    final num1 = Random().nextInt(99);
+    final num2 = Random().nextInt(99 - num1);
+
+    return Question(
+      num1,
+      num2,
       Operator.add,
     );
   }
