@@ -64,6 +64,7 @@ class QuestionPage extends StatelessWidget {
                     hasFocus: true,
                     value: bloc.inputNum,
                     size: inputBoxSize,
+                    isError: bloc.isError,
                   ),
                 ],
               ),
@@ -99,6 +100,8 @@ class QuestionPage extends StatelessWidget {
                       onTap: bloc.isSubmittable ? () {
                         if (bloc.isCorrect) {
                           bloc.question = Question.random(20);
+                        } else {
+                          bloc.isError = true;
                         }
                       } : null,
                       child: Container(

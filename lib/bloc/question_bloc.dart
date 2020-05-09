@@ -4,6 +4,7 @@ import 'package:math_everyday/model/question.dart';
 class QuestionBloc extends ChangeNotifier {
   Question _question;
   int _inputNum;
+  bool _isError = false;
 
   bool get isSubmittable => inputNum != null;
 
@@ -23,12 +24,20 @@ class QuestionBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get isError => _isError;
+  set isError(bool value) {
+    _isError = value;
+    notifyListeners();
+  }
+
   void input(int value) {
     if (inputNum == null) {
       inputNum = value;
+      isError = false;
       notifyListeners();
     } else if (inputNum < 10) {
       inputNum = inputNum * 10 + value;
+      isError = false;
       notifyListeners();
     } 
   }
@@ -38,9 +47,11 @@ class QuestionBloc extends ChangeNotifier {
       return;
     } else if (inputNum < 10) {
       inputNum = null;
+      isError = false;
       notifyListeners();
     } else {
       inputNum ~/= 10;
+      isError = false;
       notifyListeners();
     }
   }
