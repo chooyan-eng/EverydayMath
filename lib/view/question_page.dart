@@ -80,7 +80,7 @@ class QuestionPage extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     InkWell(
-                      onTap: bloc.isSubmittable ? () {} : null,
+                      onTap: bloc.delete,
                       child: Container(
                         width: keySize,
                         height: keySize,

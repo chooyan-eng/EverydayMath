@@ -32,5 +32,37 @@ main() {
       bloc.input(9);
       expect(bloc.inputNum, 59);
     });
+
+    test('未入力の状態で5, 9, 2の順番に入力すると、inputNumが59になること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.input(5);
+      bloc.input(9);
+      bloc.input(2);
+      expect(bloc.inputNum, 59);
+    });
+  });
+
+  group('×ボタンのテスト', () {
+
+    test('32が入力されている状態で1文字削除すると、inputNumが3になること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.input(3);
+      bloc.input(2);
+      bloc.delete();
+      expect(bloc.inputNum, 3);
+    });
+
+    test('5が入力されている状態で1文字削除すると、inputNumがnullになること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.input(5);
+      bloc.delete();
+      expect(bloc.inputNum, null);
+    });
+
+    test('未入力の状態で1文字削除すると、inputNumがnullになること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.delete();
+      expect(bloc.inputNum, null);
+    });
   });
 }

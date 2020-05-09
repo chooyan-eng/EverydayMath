@@ -29,5 +29,17 @@ class QuestionBloc extends ChangeNotifier {
       inputNum = inputNum * 10 + value;
       notifyListeners();
     } 
-  }  
+  }
+
+  void delete() {
+    if (inputNum == null) {
+      return;
+    } else if (inputNum < 10) {
+      inputNum = null;
+      notifyListeners();
+    } else {
+      inputNum ~/= 10;
+      notifyListeners();
+    }
+  }
 }
