@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_everyday/model/question.dart';
 
 class QuestionBloc extends ChangeNotifier {
+  int maxAnswer;
   Question _question;
   int _inputNum;
   bool _isError = false;

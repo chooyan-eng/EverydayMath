@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_everyday/view/question_scene.dart';
+import 'package:math_everyday/view/select_level_page.dart';
 
 class SelectUserPage extends StatelessWidget {
 
@@ -38,8 +39,8 @@ class SelectUserPage extends StatelessWidget {
     );
   }
 
-  void _navigateToQuiz(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionScene()));
+  void _navigateToNext(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectLevelPage()));
   }
 
   @override
@@ -55,7 +56,7 @@ class SelectUserPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: _buildUserSelect('とうや', Colors.blue, () async {
               if (await _showConfirmDialog(context, 'とうやさん', Colors.blue)) {
-                _navigateToQuiz(context);
+                _navigateToNext(context);
               }
             }),
           ),
@@ -70,7 +71,7 @@ class SelectUserPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: _buildUserSelect('あおい', Colors.purple, () async {
               if (await _showConfirmDialog(context, 'あおいちゃん', Colors.purple)) {
-                _navigateToQuiz(context);
+                _navigateToNext(context);
               }
             }),
           ),

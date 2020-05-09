@@ -99,7 +99,7 @@ class QuestionPage extends StatelessWidget {
                     InkWell(
                       onTap: bloc.isSubmittable ? () {
                         if (bloc.isCorrect) {
-                          bloc.question = Question.random(20);
+                          bloc.question = Question.random(bloc.maxAnswer);
                         } else {
                           bloc.isError = true;
                         }
