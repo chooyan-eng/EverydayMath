@@ -4,15 +4,14 @@ import 'package:math_everyday/model/question.dart';
 class QuestionBloc extends ChangeNotifier {
   Question _question;
   int _focusIndex;
-  final inputList = <int>[];
+  int _inputNum;
 
-  bool get isSubmittable => inputList.every((element) => element != null);
+  bool get isSubmittable => inputNum != null;
 
   Question get question => _question;
   set question(Question value) {
     _question = value;
-    inputList.clear();
-    inputList.addAll([null, null]); // とりあえず数字は2つ
+    inputNum = null;
     focusIndex = 0; // フォーカスを最初のやつにあてる
 
     notifyListeners();
@@ -24,11 +23,19 @@ class QuestionBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  void input(int value) {
-    inputList[_focusIndex] = value;
-    if (inputList.length > focusIndex + 1) {
-      focusIndex++;
-    }
+  int get inputNum => _inputNum;
+  set inputNum(int value) {
+    _inputNum = value;
     notifyListeners();
+  }
+
+  void input(int value) {
+    if (inputNum == null) {
+      inputNum = value;
+      notifyListeners();
+    } else if (inputNum < 10) {
+      inputNum = inputNum * 10 + value;
+      notifyListeners();
+    } 
   }  
 }

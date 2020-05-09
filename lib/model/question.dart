@@ -1,3 +1,5 @@
+import 'dart:math';
+
 enum Operator {
   add,
   subtract,
@@ -24,5 +26,13 @@ class Question {
         return num1 ~/ num2; // TODO: とりあえず
     }
     return -1;
+  }
+
+  factory Question.random() {
+    Question(
+      Random().nextInt(9),
+      Random().nextInt(9),
+      Operator.add,
+    );
   }
 }

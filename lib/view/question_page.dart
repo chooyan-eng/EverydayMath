@@ -17,11 +17,15 @@ class QuestionPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FocusableInputBox(
-                  hasFocus: bloc.focusIndex == 0,
-                  value: bloc.inputList[0],
-                  size: size,
-                  onTap: () => bloc.focusIndex = 0,
+                Container(
+                  width: size * 2 / 3,
+                  height: size,
+                  child: Center(
+                    child: Text(
+                      '${bloc.question.num1}',
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                  ),
                 ),
                 Container(
                   width: size * 2 / 3,
@@ -33,11 +37,15 @@ class QuestionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                FocusableInputBox(
-                  hasFocus: bloc.focusIndex == 1,
-                  value: bloc.inputList[1],
-                  size: size,
-                  onTap: () => bloc.focusIndex = 1,
+                Container(
+                  width: size * 2 / 3,
+                  height: size,
+                  child: Center(
+                    child: Text(
+                      '${bloc.question.num2}',
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                  ),
                 ),
                 Container(
                   width: size * 2 / 3,
@@ -49,14 +57,10 @@ class QuestionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: size,
-                  child: Center(
-                    child: Text(
-                      '32',
-                      style: const TextStyle(fontSize: 40),
-                    ),
-                  ),
+                FocusableInputBox(
+                  hasFocus: true,
+                  value: bloc.inputNum,
+                  size: size,
                 ),
               ],
             ),
@@ -73,19 +77,38 @@ class QuestionPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                InkWell(
-                  onTap: bloc.isSubmittable ? () {} : null,
-                  child: Container(
-                    width: keySize,
-                    height: keySize * 2 + 8,
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10),
+                Column(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: bloc.isSubmittable ? () {} : null,
+                      child: Container(
+                        width: keySize,
+                        height: keySize,
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text('×', style: TextStyle(fontSize: 40)),
+                        ),
+                      ),
                     ),
-                    child: Center(
-                      child: Text('OK', style: TextStyle(fontSize: 40)),
+                    const SizedBox(height: 8),
+                    InkWell(
+                      onTap: bloc.isSubmittable ? () {} : null,
+                      child: Container(
+                        width: keySize,
+                        height: keySize * 2 + 8,
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text('OK', style: TextStyle(fontSize: 40)),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
