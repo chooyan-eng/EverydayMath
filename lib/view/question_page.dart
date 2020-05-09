@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_everyday/bloc/question_bloc.dart';
+import 'package:math_everyday/model/question.dart';
 import 'package:math_everyday/view/widget/focusable_input_box.dart';
 import 'package:math_everyday/view/widget/number_keyboard.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class QuestionPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${bloc.question.num1}',
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 36),
                     ),
                   ),
                 ),
@@ -33,7 +34,7 @@ class QuestionPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '+',
-                      style: const TextStyle(fontSize: 40),
+                      style: const TextStyle(fontSize: 36),
                     ),
                   ),
                 ),
@@ -43,7 +44,7 @@ class QuestionPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${bloc.question.num2}',
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 36),
                     ),
                   ),
                 ),
@@ -53,7 +54,7 @@ class QuestionPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '=',
-                      style: const TextStyle(fontSize: 40),
+                      style: const TextStyle(fontSize: 36),
                     ),
                   ),
                 ),
@@ -95,7 +96,11 @@ class QuestionPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     InkWell(
-                      onTap: bloc.isSubmittable ? () {} : null,
+                      onTap: bloc.isSubmittable ? () {
+                        if (bloc.isCorrect) {
+                          bloc.question = Question.random();
+                        }
+                      } : null,
                       child: Container(
                         width: keySize,
                         height: keySize * 2 + 8,

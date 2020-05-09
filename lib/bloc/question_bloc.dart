@@ -7,6 +7,8 @@ class QuestionBloc extends ChangeNotifier {
 
   bool get isSubmittable => inputNum != null;
 
+  bool get isCorrect => inputNum == question.answer;
+
   Question get question => _question;
   set question(Question value) {
     _question = value;

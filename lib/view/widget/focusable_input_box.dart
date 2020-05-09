@@ -40,7 +40,10 @@ class FocusableInputBox extends StatelessWidget {
         height: size,
         decoration: decorationMap[hasFocus],
         child: Center(
-          child: Text('${value ?? ""}', style: const TextStyle(fontSize: 40)),
+          child: Text(
+            '${value ?? ""}', 
+            style: TextStyle(fontSize: 36),
+          ),
         ),
       ),
     );
