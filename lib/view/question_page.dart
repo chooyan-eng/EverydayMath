@@ -85,7 +85,7 @@ class QuestionPage extends StatelessWidget {
                         width: keySize,
                         height: keySize,
                         decoration: BoxDecoration(
-                          color: Colors.black12,
+                          color: Colors.red.withAlpha(50),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
@@ -100,11 +100,17 @@ class QuestionPage extends StatelessWidget {
                         width: keySize,
                         height: keySize * 2 + 8,
                         decoration: BoxDecoration(
-                          color: Colors.black12,
+                          color: bloc.isSubmittable ? Colors.blue.withAlpha(160) : Colors.black12,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
-                          child: Text('OK', style: TextStyle(fontSize: 40)),
+                          child: Text(
+                            'OK', 
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: bloc.isSubmittable ? Colors.white : Colors.black26,
+                            ),
+                          ),
                         ),
                       ),
                     ),
