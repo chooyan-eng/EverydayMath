@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:math_everyday/view/question_scene.dart';
 import 'package:math_everyday/view/select_level_page.dart';
+import 'package:math_everyday/view/user_create_scene.dart';
 
 class SelectUserPage extends StatelessWidget {
 
@@ -17,7 +17,6 @@ class SelectUserPage extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          // ボタン領域
           FlatButton(
             child: Text("いいえ"),
             onPressed: () {
@@ -75,6 +74,21 @@ class SelectUserPage extends StatelessWidget {
               }
             }),
           ),
+          SizedBox(height: 32),
+          InkWell(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserCreateScene())),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text('プレイヤーを追加する'),
+                  const SizedBox(width: 16),
+                  Icon(Icons.add_circle_outline, color: Colors.black54,),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
