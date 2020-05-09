@@ -65,4 +65,39 @@ main() {
       expect(bloc.inputNum, null);
     });
   });
+
+  group('間違いフラグのテスト', () {
+
+    test('間違いフラグが true の状態で任意の値を入力したら間違いフラグが false になること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.isError = true;
+      bloc.input(1);
+      expect(bloc.isError, false);
+    });
+
+    test('間違いフラグが true 、入力済みの値が2桁の状態で任意の値を入力しても間違いフラグが変わらないこと', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.input(2);
+      bloc.input(3);
+      bloc.isError = true;
+      bloc.input(4);
+      expect(bloc.isError, true); // 入力欄が2桁までのため、これ以上入力しても何も起こらない。
+    });
+
+    test('間違いフラグが true の状態で任意の値を削除したら間違いフラグが false になること', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.input(1);
+      bloc.input(1);
+      bloc.isError = true;
+      bloc.delete();
+      expect(bloc.isError, false);
+    });
+
+    test('間違いフラグが true 、入力済みの値が無い状態で任意の値を入力しても間違いフラグが変わらないこと', () {
+      bloc.question = Question(2, 3, Operator.add);
+      bloc.isError = true;
+      bloc.delete();
+      expect(bloc.isError, true); // 入力欄に変更がない場合は何も起こらない。
+    });
+  });
 }
