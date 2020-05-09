@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(),
         body: ChangeNotifierProvider(
-          create: (context) => QuestionBloc()..question = Question.random(),
+          create: (context) => QuestionBloc()..question = Question.random(20),
           child: QuestionPage(),
         ),
       ),

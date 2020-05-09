@@ -8,65 +8,65 @@ import 'package:provider/provider.dart';
 class QuestionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.width / 5 - 8;
+    final inputBoxSize = MediaQuery.of(context).size.width / 5 - 8;
+    final numBoxSize = inputBoxSize * 2 / 3;
     final keySize = (MediaQuery.of(context).size.width - 32 - 24) / 4;
     return Consumer<QuestionBloc>(builder: (context, bloc, _) {
       return Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: size * 2 / 3,
-                  height: size,
-                  child: Center(
-                    child: Text(
-                      '${bloc.question.num1}',
-                      style: TextStyle(fontSize: 36),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size * 2 / 3,
-                  height: size,
-                  child: Center(
-                    child: Text(
-                      '+',
-                      style: const TextStyle(fontSize: 36),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size * 2 / 3,
-                  height: size,
-                  child: Center(
-                    child: Text(
-                      '${bloc.question.num2}',
-                      style: TextStyle(fontSize: 36),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size * 2 / 3,
-                  height: size,
-                  child: Center(
-                    child: Text(
-                      '=',
-                      style: const TextStyle(fontSize: 36),
-                    ),
-                  ),
-                ),
-                FocusableInputBox(
-                  hasFocus: true,
-                  value: bloc.inputNum,
-                  size: size,
-                ),
-              ],
-            ),
             Expanded(
-              child: SizedBox.shrink(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: numBoxSize,
+                    height: inputBoxSize,
+                    child: Center(
+                      child: Text(
+                        '${bloc.question.num1}',
+                        style: TextStyle(fontSize: 36),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: numBoxSize,
+                    height: inputBoxSize,
+                    child: Center(
+                      child: Text(
+                        '+',
+                        style: const TextStyle(fontSize: 36),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: numBoxSize,
+                    height: inputBoxSize,
+                    child: Center(
+                      child: Text(
+                        '${bloc.question.num2}',
+                        style: TextStyle(fontSize: 36),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: numBoxSize,
+                    height: inputBoxSize,
+                    child: Center(
+                      child: Text(
+                        '=',
+                        style: const TextStyle(fontSize: 36),
+                      ),
+                    ),
+                  ),
+                  FocusableInputBox(
+                    hasFocus: true,
+                    value: bloc.inputNum,
+                    size: inputBoxSize,
+                  ),
+                ],
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -98,12 +98,12 @@ class QuestionPage extends StatelessWidget {
                     InkWell(
                       onTap: bloc.isSubmittable ? () {
                         if (bloc.isCorrect) {
-                          bloc.question = Question.random();
+                          bloc.question = Question.random(20);
                         }
                       } : null,
                       child: Container(
                         width: keySize,
-                        height: keySize * 2 + 8,
+                        height: keySize * 3 + 16,
                         decoration: BoxDecoration(
                           color: bloc.isSubmittable ? Colors.blue.withAlpha(160) : Colors.black12,
                           borderRadius: BorderRadius.circular(10),

@@ -16,7 +16,14 @@ class NumberKeyboard extends StatelessWidget {
       spacing: 8,
       runSpacing: 8,
       alignment: WrapAlignment.center,
-      children: List.generate(9, (index) => index + 1).map((e) => _buildKey(e, keySize)).toList(),
+      children: List.generate(9, (index) => index + 1)
+          .map((e) => _buildKey(e, keySize))
+          .toList()
+          ..addAll([
+            SizedBox(width: keySize, height: keySize),
+            _buildKey(0, keySize),
+            SizedBox(width: keySize, height: keySize),
+          ]),
     );
   }
 

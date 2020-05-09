@@ -28,9 +28,9 @@ class Question {
     return -1;
   }
 
-  factory Question.random() {
-    final num1 = Random().nextInt(99);
-    final num2 = Random().nextInt(99 - num1);
+  factory Question.random(int max) {
+    final num1 = Random().nextInt(max);
+    final num2 = Random().nextInt(max - num1);
 
     return Question(
       num1,
