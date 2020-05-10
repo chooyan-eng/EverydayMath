@@ -16,13 +16,35 @@ class UserCreatePage extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 60),
                 Text('おなまえ', style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 4),
+                SizedBox(height: 8),
                 TextField(
                   controller: bloc.nameController,
                   decoration: InputDecoration(border: OutlineInputBorder()),
                 ),
                 SizedBox(height: 32),
+                Text('テーマカラー', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Center(
+                  child: Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: <Widget>[
+                      _buildIconColor(bloc, Colors.blue),
+                      _buildIconColor(bloc, Colors.yellow),
+                      _buildIconColor(bloc, Colors.pink),
+                      _buildIconColor(bloc, Colors.black),
+                      _buildIconColor(bloc, Colors.brown),
+                      _buildIconColor(bloc, Colors.purple),
+                      _buildIconColor(bloc, Colors.greenAccent),
+                      _buildIconColor(bloc, Colors.indigo),
+                      _buildIconColor(bloc, Colors.amber),
+                      _buildIconColor(bloc, Colors.deepOrange),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 32),
                 Text('アイコン', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -45,20 +67,8 @@ class UserCreatePage extends StatelessWidget {
                               _buildIconSelection(bloc, Icons.airport_shuttle),
                               _buildIconSelection(bloc, Icons.beach_access),
                               _buildIconSelection(bloc, Icons.directions_boat),
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                          Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            children: <Widget>[
-                              _buildIconColor(bloc, Colors.blue),
-                              _buildIconColor(bloc, Colors.yellow),
-                              _buildIconColor(bloc, Colors.pink),
-                              _buildIconColor(bloc, Colors.black),
-                              _buildIconColor(bloc, Colors.brown),
-                              _buildIconColor(bloc, Colors.purple),
-                              _buildIconColor(bloc, Colors.red),
+                              _buildIconSelection(bloc, Icons.cake),
+                              _buildIconSelection(bloc, Icons.child_care),
                             ],
                           ),
                           SizedBox(height: 16),
@@ -95,7 +105,7 @@ class UserCreatePage extends StatelessWidget {
                       height: 48,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: Colors.blue,
+                        color: bloc.color,
                       ),
                       child: Center(
                         child: Text(

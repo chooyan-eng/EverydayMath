@@ -53,8 +53,8 @@ class SelectUserPage extends StatelessWidget {
           SizedBox(height: 60),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: _buildUserSelect('とうや', Colors.blue, () async {
-              if (await _showConfirmDialog(context, 'とうやさん', Colors.blue)) {
+            child: _buildUserSelect('プレイヤー1', Icons.adb, Colors.blue, () async {
+              if (await _showConfirmDialog(context, 'プレイヤー1', Colors.blue)) {
                 _navigateToNext(context);
               }
             }),
@@ -68,8 +68,8 @@ class SelectUserPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: _buildUserSelect('あおい', Colors.purple, () async {
-              if (await _showConfirmDialog(context, 'あおいちゃん', Colors.purple)) {
+            child: _buildUserSelect('プレイヤー2', Icons.child_care, Colors.purple, () async {
+              if (await _showConfirmDialog(context, 'プレイヤー2', Colors.purple)) {
                 _navigateToNext(context);
               }
             }),
@@ -94,7 +94,7 @@ class SelectUserPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserSelect(String name, Color color, VoidCallback onTap) {
+  Widget _buildUserSelect(String name, IconData iconData, Color color, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -111,7 +111,7 @@ class SelectUserPage extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios, size: 16, color: color)
+            Icon(iconData, size: 32, color: color)
           ],
         ),
       ),
