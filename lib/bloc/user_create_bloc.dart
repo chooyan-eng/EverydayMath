@@ -8,11 +8,12 @@ class UserCreateBloc extends ChangeNotifier {
 
   final TextEditingController nameController = TextEditingController();
 
-  Color _color;
+  var _color = Colors.blue;
   File _saveFile;
   File _tempImageFile;
   bool get isCropping => _tempImageFile != null;
-  IconData _tempIconData;
+  var _tempIconData = Icons.ac_unit;
+  final errorMessages = <String>[];
 
   String get name => nameController.text;
 
@@ -44,11 +45,14 @@ class UserCreateBloc extends ChangeNotifier {
     tempImageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
-  Future<void> saveImage() async {
-
-  }
-
   Future<User> save() async {
+    errorMessages.clear();
+    if (name?.isEmpty ?? true) {
+      errorMessages.add('「おなまえ」をきめてね');
+      notifyListeners();
+      return null;
+    }
+
     final userProvider = UserProvider();
     await userProvider.open();
     final newUser = await userProvider.insert(

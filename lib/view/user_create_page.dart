@@ -95,16 +95,25 @@ class UserCreatePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 60),
+                Offstage(
+                  offstage: bloc.errorMessages.isEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Center(
+                      child: Text(bloc.errorMessages.join('\n'), style: TextStyle(color: Colors.red)),
+                    ),
+                  ),
+                ),
                 Center(
                   child: RaisedButton(
                     onPressed: () async {
                       final user = await bloc.save();
-                      if (user.id != null) {
+                      if (user?.id != null) {
                         Toast.show('${user.name}を追加しました！', context);
                         await Provider.of<UserBloc>(context, listen: false).load();
                         Navigator.pop(context);
                       } else {
-                        Toast.show('${user.name}を追加できませんでした、、', context);
+                        Toast.show('プレイヤーを追加できませんでした。', context);
                       }
                     },
                     padding: const EdgeInsets.all(0.0),

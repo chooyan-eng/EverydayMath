@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:math_everyday/bloc/question_bloc.dart';
 import 'package:math_everyday/model/question.dart';
@@ -8,9 +10,9 @@ import 'package:provider/provider.dart';
 class QuestionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final inputBoxSize = MediaQuery.of(context).size.width / 5 - 8;
+    final inputBoxSize = min(100.0, MediaQuery.of(context).size.width / 5 - 8);
     final numBoxSize = inputBoxSize * 2 / 3;
-    final keySize = (MediaQuery.of(context).size.width - 32 - 24) / 4;
+    final keySize = min(160.0, (MediaQuery.of(context).size.width - 32 - 24) / 4);
     return Consumer<QuestionBloc>(builder: (context, bloc, _) {
       return Padding(
         padding: const EdgeInsets.all(16),
@@ -72,12 +74,11 @@ class QuestionPage extends StatelessWidget {
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  child: NumberKeyboard(
-                    keySize: keySize,
-                    onTap: (value) => bloc.input(value),
-                  ),
+                NumberKeyboard(
+                  keySize: keySize,
+                  onTap: (value) => bloc.input(value),
                 ),
                 const SizedBox(width: 8),
                 Column(
