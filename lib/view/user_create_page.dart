@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_everyday/bloc/user_create_bloc.dart';
 import 'package:math_everyday/view/widget/crop_image_page.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class UserCreatePage extends StatelessWidget {
   @override
@@ -95,7 +96,15 @@ class UserCreatePage extends StatelessWidget {
                 SizedBox(height: 60),
                 Center(
                   child: RaisedButton(
-                    onPressed: () => {},
+                    onPressed: () async {
+                      final user = await bloc.save();
+                      if (user.id != null) {
+                        Toast.show('${user.name}を追加しました！', context);
+                        Navigator.pop(context);
+                      } else {
+                        Toast.show('${user.name}を追加できませんでした、、', context);
+                      }
+                    },
                     padding: const EdgeInsets.all(0.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),

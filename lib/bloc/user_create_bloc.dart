@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:math_everyday/helper/user_db_helper.dart';
 
 class UserCreateBloc extends ChangeNotifier {
 
@@ -47,7 +48,17 @@ class UserCreateBloc extends ChangeNotifier {
 
   }
 
-  Future<void> save() async {
-
+  Future<User> save() async {
+    final userProvider = UserProvider();
+    await userProvider.open();
+    final newUser = await userProvider.insert(
+      User(
+        name: name,
+        color: color,
+        icon: tempIconData,
+        file: saveFile,
+      ),
+    );
+    return newUser;
   }
 }
