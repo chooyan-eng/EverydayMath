@@ -64,6 +64,7 @@ class QuestionPage extends StatelessWidget {
                     hasFocus: true,
                     value: bloc.inputNum,
                     size: inputBoxSize,
+                    isCorrect: bloc.isCorrect,
                     isError: bloc.isError,
                   ),
                 ],
@@ -97,9 +98,12 @@ class QuestionPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     InkWell(
-                      onTap: bloc.isSubmittable ? () {
-                        if (bloc.isCorrect) {
-                          bloc.question = Question.random(bloc.maxAnswer);
+                      onTap: bloc.isSubmittable ? () async {
+                        if (bloc.inputNum == bloc.question.answer) {
+                          bloc.isCorrect = true;
+                          Future.delayed(Duration(milliseconds: 1000)).then((value) => 
+                            bloc.question = Question.random(bloc.maxAnswer),
+                          );
                         } else {
                           bloc.isError = true;
                         }

@@ -5,16 +5,16 @@ class QuestionBloc extends ChangeNotifier {
   int maxAnswer;
   Question _question;
   int _inputNum;
+  bool _isCorrect = false;
   bool _isError = false;
 
   bool get isSubmittable => inputNum != null;
 
-  bool get isCorrect => inputNum == question.answer;
-
   Question get question => _question;
   set question(Question value) {
-    _question = value;
+    _isCorrect = false;
     inputNum = null;
+    _question = value;
 
     notifyListeners();
   }
@@ -22,6 +22,12 @@ class QuestionBloc extends ChangeNotifier {
   int get inputNum => _inputNum;
   set inputNum(int value) {
     _inputNum = value;
+    notifyListeners();
+  }
+
+  bool get isCorrect => _isCorrect;
+  set isCorrect(bool value) {
+    _isCorrect = value;
     notifyListeners();
   }
 
