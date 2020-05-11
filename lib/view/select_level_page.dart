@@ -11,46 +11,43 @@ class SelectLevelPage extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 60),
-            Text(
-              'レベルを選んでください',
-              style: TextStyle(fontSize: 18),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 60),
+          Text(
+            'レベルをえらんでください',
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(height: 60),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: _buildLevelSelect('むずかしい', Colors.purple, () => _navigateToQuiz(context, 99, 'むずかしい')),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Container(
+              height: 1,
+              color: Colors.black12,
             ),
-            SizedBox(height: 60),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: _buildLevelSelect('むずかしい', Colors.purple, () => _navigateToQuiz(context, 99, 'むずかしい')),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: _buildLevelSelect('ふつう', Colors.blue, () => _navigateToQuiz(context, 20, 'ふつう')),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Container(
+              height: 1,
+              color: Colors.black12,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Container(
-                height: 1,
-                color: Colors.black12,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: _buildLevelSelect('ふつう', Colors.blue, () => _navigateToQuiz(context, 20, 'ふつう')),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Container(
-                height: 1,
-                color: Colors.black12,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: _buildLevelSelect('かんたん', Colors.lightGreen, () => _navigateToQuiz(context, 10, 'かんたん')),
-            ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: _buildLevelSelect('かんたん', Colors.lightGreen, () => _navigateToQuiz(context, 10, 'かんたん')),
+          ),
+        ],
       ),
     );
   }

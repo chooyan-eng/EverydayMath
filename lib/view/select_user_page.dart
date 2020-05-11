@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_everyday/bloc/user_bloc.dart';
 import 'package:math_everyday/helper/user_db_helper.dart';
 import 'package:math_everyday/view/select_level_page.dart';
+import 'package:math_everyday/view/select_level_scene.dart';
 import 'package:math_everyday/view/user_create_scene.dart';
 import 'package:provider/provider.dart';
 
@@ -41,10 +42,6 @@ class SelectUserPage extends StatelessWidget {
     ) ?? false;
   }
 
-  void _navigateToNext(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectLevelPage()));
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -64,7 +61,7 @@ class SelectUserPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: _buildUserSelect(user, () async {
                       if (await _showConfirmDialog(context, user)) {
-                        _navigateToNext(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectLevelScene(user: user)));
                       }
                     }),
                   ),
