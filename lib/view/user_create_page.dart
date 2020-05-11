@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_everyday/bloc/user_bloc.dart';
 import 'package:math_everyday/bloc/user_create_bloc.dart';
 import 'package:math_everyday/view/widget/crop_image_page.dart';
 import 'package:provider/provider.dart';
@@ -100,6 +101,7 @@ class UserCreatePage extends StatelessWidget {
                       final user = await bloc.save();
                       if (user.id != null) {
                         Toast.show('${user.name}を追加しました！', context);
+                        await Provider.of<UserBloc>(context, listen: false).load();
                         Navigator.pop(context);
                       } else {
                         Toast.show('${user.name}を追加できませんでした、、', context);

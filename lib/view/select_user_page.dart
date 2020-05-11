@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:math_everyday/bloc/user_bloc.dart';
+import 'package:math_everyday/helper/user_db_helper.dart';
 import 'package:math_everyday/view/select_level_page.dart';
 import 'package:math_everyday/view/user_create_scene.dart';
+import 'package:provider/provider.dart';
 
 class SelectUserPage extends StatelessWidget {
 
-  Future<bool> _showConfirmDialog(BuildContext context, String name, Color color) async {
+  Future<bool> _showConfirmDialog(BuildContext context, User user) async {
     return await showDialog<bool>(
       context: context, 
       builder: (context) => AlertDialog(
         content: RichText(
           text: TextSpan(
             children: <InlineSpan>[
-              TextSpan(text: name, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+              TextSpan(text: user.name, style: TextStyle(color: user.color, fontWeight: FontWeight.bold)),
               TextSpan(text: ' が遊びますか？', style: TextStyle(color: Colors.black87)),
             ]
           ),
@@ -35,7 +38,7 @@ class SelectUserPage extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ) ?? false;
   }
 
   void _navigateToNext(BuildContext context) {
@@ -44,57 +47,61 @@ class SelectUserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 60),
-          Text('だれが遊びますか？', style: TextStyle(fontSize: 18),),
-          SizedBox(height: 60),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: _buildUserSelect('プレイヤー1', Icons.adb, Colors.blue, () async {
-              if (await _showConfirmDialog(context, 'プレイヤー1', Colors.blue)) {
-                _navigateToNext(context);
-              }
-            }),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Container(
-              height: 1,
-              color: Colors.black12,
-            )
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: _buildUserSelect('プレイヤー2', Icons.child_care, Colors.purple, () async {
-              if (await _showConfirmDialog(context, 'プレイヤー2', Colors.purple)) {
-                _navigateToNext(context);
-              }
-            }),
-          ),
-          SizedBox(height: 32),
-          InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserCreateScene())),
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text('プレイヤーを追加する'),
-                  const SizedBox(width: 16),
-                  Icon(Icons.add_circle_outline, color: Colors.black54,),
-                ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 60),
+            Text('だれが遊びますか？', style: TextStyle(fontSize: 18),),
+            SizedBox(height: 60),
+            Consumer<UserBloc>(
+              builder: (context, userBloc, child) => Column(
+                children: userBloc.userList.isEmpty ? [
+                  Text('まずはあたらしいプレイヤーをつくろう', style: TextStyle(color: Colors.black45),),
+                ] : (userBloc.userList.expand<Widget>((user) => [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: _buildUserSelect(user, () async {
+                      if (await _showConfirmDialog(context, user)) {
+                        _navigateToNext(context);
+                      }
+                    }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Container(
+                      height: 1,
+                      color: Colors.black12,
+                    )
+                  ),
+                ]).toList()..removeLast())
               ),
             ),
-          )
-        ],
+            SizedBox(height: 32),
+            InkWell(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UserCreateScene())),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('あたらしいプレイヤー', style: TextStyle(color: Colors.blue),),
+                    const SizedBox(width: 16),
+                    Icon(Icons.add_circle_outline, color: Colors.blue,),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 60),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildUserSelect(String name, IconData iconData, Color color, VoidCallback onTap) {
+  Widget _buildUserSelect(User user, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -104,14 +111,22 @@ class SelectUserPage extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                name, 
+                user.name, 
                 style: TextStyle(
-                  color: color,
+                  color: user.color,
                   fontSize: 24,
                 ),
               ),
             ),
-            Icon(iconData, size: 32, color: color)
+            user.file == null ? 
+              Icon(user.icon, size: 32, color: user.color) :
+              ClipOval(
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  child: Image.file(user.file),
+                ),
+              ),
           ],
         ),
       ),

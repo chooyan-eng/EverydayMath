@@ -43,7 +43,7 @@ class User {
     return User(
       id: map[columnId],
       name: map[columnName],
-      color: Color(map[columnName]),
+      color: Color(map[columnColor]),
       icon: (map[columnIcon] as String).toIconData(),
       file: map[columnFile] == null ? null : File(map[columnFile]),
     );
@@ -73,6 +73,12 @@ class UserProvider {
   Future<User> insert(User user) async {
     user.id = await db.insert(tableUser, user.toMap());
     return user;
+  }
+
+  Future<List<User>> getAll() async {
+    List<Map> maps = await db.query(tableUser,
+        columns: [columnId, columnName, columnColor, columnIcon, columnFile]);
+      return maps.map<User>((userMap) => User.fromMap(userMap)).toList();
   }
 
   Future<User> getUser(int id) async {
